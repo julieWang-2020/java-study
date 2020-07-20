@@ -1,4 +1,4 @@
-package com.wzh.sync;
+package com.wzh.multithread.sync;
 
 /**
  * @description:

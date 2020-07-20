@@ -1,0 +1,34 @@
+// 模板方法
+AQS实现：volatile + CAS
+双向链表，
+volatile int State
+state 随子类不同实现取得不同的意义
+
+AQS 核心点：入队，出队（使用CAS 加）
+CAS  操作 tail
+
+aqs.lock
+@startuml
+
+Lock -> NonfairSync:lock
+NonfairSync -> AbstractQueuedSynchronizer:acquire(1)
+AbstractQueuedSynchronizer -> NonfairSync:tryAcquire(1)
+NonfairSync -> NonfairSync:nonfairTryAcquire(1)
+NonfairSync -> Sync:nonfairTryAcquire(1) true/false
+AbstractQueuedSynchronizer ->AbstractQueuedSynchronizer:acquireQueued(node,1)
+AbstractQueuedSynchronizer ->AbstractQueuedSynchronizer:addWaiter(node)
+
+'Sync -> AbstractQueuedSynchronizer:getState()
+'Sync -> AbstractQueuedSynchronizer:compareAndSetState(0，1)
+
+@enduml
+
+aqs.unlock
+@startuml
+
+Lock -> ReentrantLock:unlock()
+ReentrantLock ->AbstractQueuedSynchronizer:release(1)
+AbstractQueuedSynchronizer->ReentrantLock:tryRelease(1)
+AbstractQueuedSynchronizer->AbstractQueuedSynchronizer:unparkSuccessor(Node)
+
+@enduml

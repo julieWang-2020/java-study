@@ -1,4 +1,4 @@
-package com.wzh.thread;
+package com.wzh.multithread.thread;
 
 import java.util.concurrent.TimeUnit;
 

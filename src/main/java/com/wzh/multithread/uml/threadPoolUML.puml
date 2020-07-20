@@ -1,0 +1,13 @@
+线程池执行流程
+@startuml
+
+Executor ->ThreadPoolExecutor: execute(Runnable)
+/'线程数 < 核心线程数 直接创建worker 执行任务'/
+ThreadPoolExecutor -> ThreadPoolExecutor:addWorker(Runnable,true)
+/'线程数 超过 核心线程数，任务直接进入队列'/
+/'队列已满，线程池 >= 最大线程数  -> 执行拒绝策略'/
+/'队列已满，线程池 < 最大线程数  -> 创建线程并执行'/
+ThreadPoolExecutor -> ThreadPoolExecutor:addWorker(Runnable,false)
+
+
+@enduml
